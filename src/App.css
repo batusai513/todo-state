@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.media {
+  overflow: hidden;
+}
+
+.media__img {
+  float: left;
+  margin-right: 10px;
+}
+
+.media__body {
+  overflow: hidden;
+}
+
+.movie {
+  float: left;
+  width: 33%;
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+
+.search {
+  width: 100%;
+  font-size: 1em;
+  padding: 0.5em 1em;
+  margin-bottom: 0.5em;
+}
+
+.radio {
+  margin-left: 10px;
+}
+
+label {
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.filter {
+  margin-bottom: 1em;
+}
