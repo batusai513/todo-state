@@ -3,15 +3,23 @@ import PropTypes from "prop-types";
 
 export default function Todo(
   {
-    text
+    text,
+    isDone,
+    toggleTodoDone,
+    deleteTodo
   }
 ) {
   return (
     <div>
       <div className="view">
-        <input className="toggle" type="checkbox" />
+        <input
+          checked={isDone}
+          onChange={toggleTodoDone}
+          className="toggle"
+          type="checkbox"
+        />
         <label>{text}</label>
-        <button className="destroy" />
+        <button onClick={deleteTodo} className="destroy" />
       </div>
       <input className="edit" value="Create a TodoMVC template" />
     </div>
@@ -22,5 +30,7 @@ Todo.displayName = "Todo";
 
 Todo.propTypes = {
   text: PropTypes.string.isRequired,
-  isDone: PropTypes.bool.isRequired
+  isDone: PropTypes.bool.isRequired,
+  toggleTodoDone: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired
 };
