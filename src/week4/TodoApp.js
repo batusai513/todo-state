@@ -36,6 +36,7 @@ export default class TodoApp extends Component {
   }
   render() {
     var { todos } = this.state;
+    var leftTodos = todos.filter(todo => !todo.isDone).length;
     return (
       <section className="todoapp">
         <TodoHeader onAddTodo={this.addTodo} />
@@ -48,7 +49,7 @@ export default class TodoApp extends Component {
             list={todos}
           />
         </section>
-        <TodoFooter />
+        <TodoFooter leftTodos={leftTodos} />
       </section>
     );
   }
