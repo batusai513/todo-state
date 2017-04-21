@@ -1,22 +1,45 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import TodoFilter from "./TodoFilter";
 
 export default function TodoFooter({
-  leftTodos
+  leftTodos,
+  selectedFilter,
+  changeFilter
 }) {
   return (
     <footer className="footer">
       <span className="todo-count"><strong>{leftTodos}</strong> item left</span>
       <ul className="filters">
         <li>
-          <TodoFilter selected url="#/">All</TodoFilter>
+          <TodoFilter
+            type="all"
+            onChangeFilter={changeFilter}
+            selectedFilter={selectedFilter}
+            url="#/"
+          >
+            All
+          </TodoFilter>
         </li>
         <li>
-          <TodoFilter selected url="#/active">Active</TodoFilter>
+          <TodoFilter
+            type="active"
+            onChangeFilter={changeFilter}
+            selectedFilter={selectedFilter}
+            url="#/active"
+          >
+            Active
+          </TodoFilter>
         </li>
         <li>
-          <TodoFilter selected url="#/completed">Completed</TodoFilter>
+          <TodoFilter
+            type="completed"
+            onChangeFilter={changeFilter}
+            selectedFilter={selectedFilter}
+            url="#/completed"
+          >
+            Completed
+          </TodoFilter>
         </li>
       </ul>
       <button className="clear-completed">Clear completed</button>
@@ -25,5 +48,7 @@ export default function TodoFooter({
 }
 
 TodoFooter.propTypes = {
-  leftTodos: PropTypes.number.isRequired
+  leftTodos: PropTypes.number.isRequired,
+  selectedFilter: PropTypes.bool.isRequired,
+  changeFilter: PropTypes.func.isRequired
 };
