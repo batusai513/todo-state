@@ -7,7 +7,7 @@ import TodoApp from './week4/TodoApp';
 import MoviesApp from './week5/Movies';
 
 ReactDOM.render(
-  <MoviesApp />,
+  <TodoApp />,
   document.querySelector('#root')
 );
 
