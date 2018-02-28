@@ -1,31 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { observer, inject } from "mobx-react";
 import Todo from "./Todo";
 
-export default function TodoList({ list, toggleTodoDone, deleteTodo }) {
-  return (
-    <ul className="todo-list">
-      {renderList(list)}
-    </ul>
-  );
+function TodoList({ list }) {
+  return <ul className="todo-list">{renderList(list)}</ul>;
 
   function renderList(list) {
-    return list.map((todo, idx) => (
-      <li key={todo.text} className={`${todo.isDone ? "completed" : ""}`}>
-        <Todo
-          deleteTodo={function() {
-            deleteTodo(idx);
-          }}
-          toggleTodoDone={function() {
-            toggleTodoDone(idx);
-          }}
-          text={todo.text}
-          isDone={todo.isDone}
-        />
-      </li>
-    ));
+    return list.map((todo, idx) => <Todo key={todo.text} todo={todo} />);
   }
 }
+
+export default inject(({ store }) => ({ list: store.todos }))(
+  observer(TodoList)
+);
 
 TodoList.displayName = "TodoList";
 

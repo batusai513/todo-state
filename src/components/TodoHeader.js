@@ -1,8 +1,7 @@
 import React from "react";
+import { observer, inject } from 'mobx-react';
 
-export default function TodoHeader({
-  onAddTodo
-}) {
+function TodoHeader({ onAddTodo }) {
   var input = {};
   return (
     <header className="header">
@@ -20,12 +19,14 @@ export default function TodoHeader({
   );
 
   function addTodo(e) {
-    var value = input.value;
-    onAddTodo({
-      text: value,
-      isDone: false
-    });
+    var text = input.value;
+    onAddTodo(text);
     input.value = '';
     e.preventDefault();
   }
 }
+
+//usando provider, si no hay inject, no hay store en el observer
+export default inject(stores => ({
+  onAddTodo: stores.store.addTodo,
+}))(observer(TodoHeader));

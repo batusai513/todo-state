@@ -1,16 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { observer, inject } from "mobx-react";
 
-export default function Todo(
-  {
-    text,
-    isDone,
-    toggleTodoDone,
-    deleteTodo
-  }
-) {
+function Todo({ text, isDone, toggleTodoDone, deleteTodo }) {
   return (
-    <div>
+    <li className={`${isDone ? "completed" : ""}`}>
       <div className="view">
         <input
           checked={isDone}
@@ -22,9 +16,18 @@ export default function Todo(
         <button onClick={deleteTodo} className="destroy" />
       </div>
       <input className="edit" value="Create a TodoMVC template" />
-    </div>
+    </li>
   );
 }
+
+export default inject(
+  (_, props) => ({
+    deleteTodo: props.todo.removeTodo,
+    text: props.todo.text,
+    isDone: props.todo.isDone,
+    toggleTodoDone: props.todo.toggleIsDone
+  })
+)(observer(Todo));
 
 Todo.displayName = "Todo";
 

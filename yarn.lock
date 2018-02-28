@@ -4460,6 +4460,20 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.1, mkdirp@~0.5.0, mkdi
   dependencies:
     minimist "0.0.8"
 
+mobx-react-devtools@^4.2.15:
+  version "4.2.15"
+  resolved "https://registry.yarnpkg.com/mobx-react-devtools/-/mobx-react-devtools-4.2.15.tgz#881c038fb83db4dffd1e72bbaf5374d26b2fdebb"
+
+mobx-react@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.4.2.tgz#22d710974883de1763cdafce3025570a79c64336"
+  dependencies:
+    hoist-non-react-statics "^2.3.1"
+
+mobx@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.6.1.tgz#ae63a8f00e1485a740d0f91ae2f6a5f68e303bea"
+
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
@@ -4844,9 +4858,9 @@ param-case@2.1.x:
   dependencies:
     no-case "^2.2.0"
 
-parket@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/parket/-/parket-0.2.2.tgz#a0ea59bf1718e8bdcea939e159502506338c2027"
+parket@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/parket/-/parket-0.2.4.tgz#6fd8bf0aef5319eced350092a52e46e21b5efd86"
   dependencies:
     mitt "^1.1.3"
 
@@ -5364,6 +5378,14 @@ prop-types@^15.5.4:
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
   dependencies:
     fbjs "^0.8.9"
+
+prop-types@^15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
 
 proxy-addr@~1.1.3:
   version "1.1.3"
