@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { observer, inject } from 'mobx-react';
 
-export default function TodoFilter({
+function TodoFilter({
   children,
   url,
   selectedFilter,
@@ -20,6 +21,11 @@ function changeFilterHandler(onChangeFilter, type) {
     onChangeFilter(type);
   }
 }
+
+export default inject(({store}) => ({
+  selectedFilter: store.selectedFilter,
+  onChangeFilter: store.changeFilter
+}))(observer(TodoFilter));
 
 TodoFilter.displayName = "TodoFilter";
 

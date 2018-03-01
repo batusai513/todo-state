@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, observer } from 'mobx-react'
+import { useStrict } from 'mobx'
 import './week4/Todo.css';
 
 import Tarea from './week3/Forms';
 import TodoApp from './week4/TodoApp';
 import { TodosApp } from './week4/model';
 import MoviesApp from './week5/Movies';
+
+useStrict(true);
 
 ReactDOM.render(
   <Provider store={new TodosApp()}>

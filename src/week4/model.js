@@ -3,9 +3,11 @@ import { extendObservable, computed, action } from "mobx";
 export class Todo {
   constructor({ text = "", isDone = false }, root) {
     extendObservable(this, {
+      id: Date.now(),
       isDone,
       text,
       root,
+      isEditing: false,
       toggleIsDone: action(function toggleIsDone() {
         this.isDone = !this.isDone;
       }.bind(this)),
@@ -14,7 +16,7 @@ export class Todo {
       }.bind(this)),
       removeTodo: action(function removeTodo() {
         this.root.removeTodo(this);
-      }.bind(this))
+      }.bind(this)),
     });
   }
 }
@@ -30,6 +32,9 @@ export class TodosApp {
       activeTodos: computed(function completedTodos() {
         return this.todos.filter(todo => !todo.isDone);
       }),
+      leftTodos: computed(function leftTodos() {
+        return this.activeTodos.length;
+      }),
       getFilteredList: computed(function getFilteredList() {
         return {
           all: this.todos,
@@ -44,7 +49,7 @@ export class TodosApp {
         this.todos.splice(this.todos.indexOf(todo), 1);
       }.bind(this)),
       changeFilter: action(function changeFilter(filter) {
-        this.filter = filter;
+        this.selectedFilter = filter;
       }.bind(this))
     });
   }

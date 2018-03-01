@@ -15,11 +15,7 @@ export default class TodoApp extends Component {
           <label htmlFor="toggle-all">Mark all as complete</label>
           <TodoList />
         </section>
-        {/*<TodoFooter
-          changeFilter={this.changeFilter}
-          selectedFilter={selectedFilter}
-          leftTodos={leftTodos}
-        />*/}
+        <TodoFooter />
         <DevTools />
       </section>
     );

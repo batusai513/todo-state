@@ -1,21 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { inject, observer } from "mobx-react";
 import TodoFilter from "./TodoFilter";
 
-export default function TodoFooter({
-  leftTodos,
-  selectedFilter,
-  changeFilter
-}) {
+function TodoFooter({ leftTodos }) {
   return (
     <footer className="footer">
-      <span className="todo-count"><strong>{leftTodos}</strong> item left</span>
+      <span className="todo-count">
+        <strong>{leftTodos}</strong> item left
+      </span>
       <ul className="filters">
         <li>
           <TodoFilter
             type="all"
-            onChangeFilter={changeFilter}
-            selectedFilter={selectedFilter}
             url="#/"
           >
             All
@@ -24,8 +21,6 @@ export default function TodoFooter({
         <li>
           <TodoFilter
             type="active"
-            onChangeFilter={changeFilter}
-            selectedFilter={selectedFilter}
             url="#/active"
           >
             Active
@@ -34,8 +29,6 @@ export default function TodoFooter({
         <li>
           <TodoFilter
             type="completed"
-            onChangeFilter={changeFilter}
-            selectedFilter={selectedFilter}
             url="#/completed"
           >
             Completed
@@ -47,8 +40,10 @@ export default function TodoFooter({
   );
 }
 
+export default inject(({ store }) => ({
+  leftTodos: store.leftTodos,
+}))(observer(TodoFooter));
+
 TodoFooter.propTypes = {
   leftTodos: PropTypes.number.isRequired,
-  selectedFilter: PropTypes.bool.isRequired,
-  changeFilter: PropTypes.func.isRequired
 };

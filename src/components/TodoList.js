@@ -7,11 +7,11 @@ function TodoList({ list }) {
   return <ul className="todo-list">{renderList(list)}</ul>;
 
   function renderList(list) {
-    return list.map((todo, idx) => <Todo key={todo.text} todo={todo} />);
+    return list.map((todo, idx) => <Todo key={todo.id} todo={todo} />);
   }
 }
 
-export default inject(({ store }) => ({ list: store.todos }))(
+export default inject(({ store }) => ({ list: store.getFilteredList }))(
   observer(TodoList)
 );
 
