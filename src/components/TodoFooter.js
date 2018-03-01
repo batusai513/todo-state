@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { inject, observer } from "mobx-react";
 import TodoFilter from "./TodoFilter";
 
-function TodoFooter({ leftTodos }) {
+function TodoFooter({ leftTodos, selectedFilter, clearCompleted }) {
   return (
     <footer className="footer">
       <span className="todo-count">
@@ -11,10 +11,7 @@ function TodoFooter({ leftTodos }) {
       </span>
       <ul className="filters">
         <li>
-          <TodoFilter
-            type="all"
-            url="#/"
-          >
+          <TodoFilter type="all" url="#/" isActive={selectedFilter == "all"}>
             All
           </TodoFilter>
         </li>
@@ -22,6 +19,7 @@ function TodoFooter({ leftTodos }) {
           <TodoFilter
             type="active"
             url="#/active"
+            isActive={selectedFilter == "active"}
           >
             Active
           </TodoFilter>
@@ -30,20 +28,23 @@ function TodoFooter({ leftTodos }) {
           <TodoFilter
             type="completed"
             url="#/completed"
+            isActive={selectedFilter == "completed"}
           >
             Completed
           </TodoFilter>
         </li>
       </ul>
-      <button className="clear-completed">Clear completed</button>
+      <button onClick={clearCompleted} className="clear-completed">Clear completed</button>
     </footer>
   );
 }
 
 export default inject(({ store }) => ({
+  selectedFilter: store.selectedFilter,
   leftTodos: store.leftTodos,
+  clearCompleted: store.clearCompleted,
 }))(observer(TodoFooter));
 
 TodoFooter.propTypes = {
-  leftTodos: PropTypes.number.isRequired,
+  leftTodos: PropTypes.number.isRequired
 };
