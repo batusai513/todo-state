@@ -11,7 +11,7 @@ function TodoFooter({ leftTodos, selectedFilter, clearCompleted }) {
       </span>
       <ul className="filters">
         <li>
-          <TodoFilter type="all" url="#/" isActive={selectedFilter == "all"}>
+          <TodoFilter type="all" url="#/" isActive={selectedFilter === "all"}>
             All
           </TodoFilter>
         </li>
@@ -19,7 +19,7 @@ function TodoFooter({ leftTodos, selectedFilter, clearCompleted }) {
           <TodoFilter
             type="active"
             url="#/active"
-            isActive={selectedFilter == "active"}
+            isActive={selectedFilter === "active"}
           >
             Active
           </TodoFilter>
@@ -28,7 +28,7 @@ function TodoFooter({ leftTodos, selectedFilter, clearCompleted }) {
           <TodoFilter
             type="completed"
             url="#/completed"
-            isActive={selectedFilter == "completed"}
+            isActive={selectedFilter === "completed"}
           >
             Completed
           </TodoFilter>

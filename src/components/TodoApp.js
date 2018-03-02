@@ -4,7 +4,6 @@ import AllCompleted from './AllCompleted';
 import TodoHeader from "./TodoHeader";
 import TodoList from "./TodoList";
 import TodoFooter from "./TodoFooter";
-import data from "./todoData";
 
 export default class TodoApp extends Component {
   render() {

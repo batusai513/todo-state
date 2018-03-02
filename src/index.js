@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, observer } from 'mobx-react'
+import { Provider } from 'mobx-react'
 import { useStrict } from 'mobx'
 import TodoApp from './components/TodoApp';
 import { TodosApp } from './store';

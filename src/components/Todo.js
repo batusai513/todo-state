@@ -16,7 +16,7 @@ class Todo extends React.Component {
     });
   }
   componentDidUpdate(prevProps, prevState) {
-    if(this.isEditing == true) {
+    if(this.isEditing === true) {
       this.focusTextInput();
     }
   }
