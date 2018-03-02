@@ -21,7 +21,7 @@ export default function Todo(
         <label>{text}</label>
         <button onClick={deleteTodo} className="destroy" />
       </div>
-      <input className="edit" value="Create a TodoMVC template" />
+      <input className="edit" defaultValue="Create a TodoMVC template" />
     </div>
   );
 }

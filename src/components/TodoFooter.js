@@ -49,6 +49,6 @@ export default function TodoFooter({
 
 TodoFooter.propTypes = {
   leftTodos: PropTypes.number.isRequired,
-  selectedFilter: PropTypes.bool.isRequired,
+  selectedFilter: PropTypes.string.isRequired,
   changeFilter: PropTypes.func.isRequired
 };

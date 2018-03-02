@@ -9,7 +9,7 @@ export default function TodoFilter({
   onChangeFilter
 }) {
   return (
-    <a onClick={changeFilterHandler(onChangeFilter, type)} className={`${selectedFilter == type ? "selected" : ""}`} href="#/">
+    <a onClick={changeFilterHandler(onChangeFilter, type)} className={`${selectedFilter === type ? "selected" : ""}`} href="#/">
       {children}
     </a>
   );

@@ -50,7 +50,7 @@ export default class TodoApp extends Component {
   deleteTodo(idx) {
     var todos = this.state.todos;
     var newTodos = todos.filter((todo, todoIdx) => {
-      return todoIdx != idx;
+      return todoIdx !== idx;
     });
     this.setState(state => ({ todos: newTodos }));
   }
@@ -64,7 +64,7 @@ export default class TodoApp extends Component {
         <TodoHeader onAddTodo={this.addTodo} />
         <section className="main">
           <input className="toggle-all" type="checkbox" />
-          <label for="toggle-all">Mark all as complete</label>
+          <label htmlFor="toggle-all">Mark all as complete</label>
           <TodoList
             deleteTodo={this.deleteTodo}
             toggleTodoDone={this.toggleTodoDone}
