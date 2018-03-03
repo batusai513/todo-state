@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from 'react-redux';
 import Todo from "./Todo";
+import { removeTodo, toggleTodoDone } from '../modules/todos';
 
-export default function TodoList({ list, toggleTodoDone, deleteTodo }) {
+function TodoList({ list, toggleTodoDone, deleteTodo }) {
   return (
     <ul className="todo-list">
       {renderList(list)}
@@ -11,7 +13,7 @@ export default function TodoList({ list, toggleTodoDone, deleteTodo }) {
 
   function renderList(list) {
     return list.map((todo, idx) => (
-      <li key={todo.text} className={`${todo.isDone ? "completed" : ""}`}>
+      <li key={todo.id} >
         <Todo
           deleteTodo={function() {
             deleteTodo(idx);
@@ -24,6 +26,17 @@ export default function TodoList({ list, toggleTodoDone, deleteTodo }) {
         />
       </li>
     ));
+  }
+}
+
+export default connect(mapStateToProps, {
+  toggleTodoDone,
+  deleteTodo: removeTodo
+})(TodoList);
+
+function mapStateToProps(state) {
+  return {
+    list: state.todos,
   }
 }
 

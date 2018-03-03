@@ -65,11 +65,7 @@ export default class TodoApp extends Component {
         <section className="main">
           <input className="toggle-all" type="checkbox" />
           <label htmlFor="toggle-all">Mark all as complete</label>
-          <TodoList
-            deleteTodo={this.deleteTodo}
-            toggleTodoDone={this.toggleTodoDone}
-            list={filteredTodos}
-          />
+          <TodoList />
         </section>
         <TodoFooter
           changeFilter={this.changeFilter}

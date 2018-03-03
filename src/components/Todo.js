@@ -10,7 +10,7 @@ export default function Todo(
   }
 ) {
   return (
-    <div>
+    <div className={`${isDone ? "completed" : ""}`}>
       <div className="view">
         <input
           checked={isDone}
