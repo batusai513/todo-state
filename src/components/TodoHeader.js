@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { addTodo } from '../modules/todos';
 
-export default function TodoHeader({
+function TodoHeader({
   onAddTodo
 }) {
   var input = {};
@@ -21,11 +23,12 @@ export default function TodoHeader({
 
   function addTodo(e) {
     var value = input.value;
-    onAddTodo({
-      text: value,
-      isDone: false
-    });
+    onAddTodo(value);
     input.value = '';
     e.preventDefault();
   }
 }
+
+export default connect(null, {
+  onAddTodo: addTodo
+})(TodoHeader);
