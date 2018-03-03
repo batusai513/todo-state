@@ -2,9 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import Todo from "./Todo";
-import { removeTodo, toggleTodoDone } from '../modules/todos';
 
-function TodoList({ list, toggleTodoDone, deleteTodo }) {
+function TodoList({ list }) {
   return (
     <ul className="todo-list">
       {renderList(list)}
@@ -12,15 +11,10 @@ function TodoList({ list, toggleTodoDone, deleteTodo }) {
   );
 
   function renderList(list) {
-    return list.map((todo, idx) => (
+    return list.map((todo) => (
       <li key={todo.id} >
         <Todo
-          deleteTodo={function() {
-            deleteTodo(idx);
-          }}
-          toggleTodoDone={function() {
-            toggleTodoDone(idx);
-          }}
+          id={todo.id}
           text={todo.text}
           isDone={todo.isDone}
         />
@@ -29,14 +23,23 @@ function TodoList({ list, toggleTodoDone, deleteTodo }) {
   }
 }
 
-export default connect(mapStateToProps, {
-  toggleTodoDone,
-  deleteTodo: removeTodo
-})(TodoList);
+export default connect(mapStateToProps)(TodoList);
 
 function mapStateToProps(state) {
+  const { todos, selectedFilter } = state;
   return {
-    list: state.todos,
+    list: getFilteredList(todos, selectedFilter),
+  }
+}
+
+function getFilteredList(list, filter) {
+  switch (filter) {
+    case 'active':
+      return list.filter(item => !item.isDone);
+    case 'completed':
+      return list.filter(item => item.isDone);
+    default:
+      return list;
   }
 }
 
@@ -44,6 +47,4 @@ TodoList.displayName = "TodoList";
 
 TodoList.propTypes = {
   list: PropTypes.array.isRequired,
-  toggleTodoDone: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired
 };

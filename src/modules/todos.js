@@ -3,17 +3,23 @@ export const TOGGLE_TODO = 'TOGGLE_TODO';
 export const REMOVE_TODO = 'REMOVE_TODO';
 
 export default function todos(state = [], action) {
-  const { type, payload } = action;
+  const {
+    type,
+    payload
+  } = action;
   switch (type) {
     case ADD_TODO:
-      return [todoFactory({ text: payload })].concat(state);
+      return [todoFactory({
+        text: payload
+      })].concat(state);
     case TOGGLE_TODO:
       return state.map(
-        (todo, index) =>
-          index === payload ? todoFactory({ ...todo, isDone: !todo.isDone }) : todo
+        (todo) => todo.id === payload ? todoFactory({ ...todo,
+          isDone: !todo.isDone
+        }) : todo
       );
     case REMOVE_TODO:
-      return state.filter((todo, index) => index !== payload);
+      return state.filter((todo) => todo.id !== payload);
     default:
       return state;
   }
@@ -40,11 +46,23 @@ export function toggleTodoDone(idx) {
   };
 }
 
-function todo(state = {}, action) {
-  const { type, payload } = action;
+
+export function getFilteredList(list, filter) {
+  switch (filter) {
+    case 'active':
+      return list.filter(item => !item.isDone);
+    case 'completed':
+      return list.filter(item => item.isDone);
+    default:
+      return list;
+  }
 }
 
-function todoFactory({ text = '', isDone = false, id = Date.now() }) {
+function todoFactory({
+  text = '',
+  isDone = false,
+  id = Date.now()
+}) {
   return {
     id,
     text,

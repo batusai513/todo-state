@@ -70,7 +70,6 @@ export default class TodoApp extends Component {
         <TodoFooter
           changeFilter={this.changeFilter}
           selectedFilter={selectedFilter}
-          leftTodos={leftTodos}
         />
       </section>
     );
