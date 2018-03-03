@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TodoFilter from './TodoFilter';
 import TodoCount from './TodoCount';
 
-export default function TodoFooter({ selectedFilter, changeFilter }) {
+export default function TodoFooter() {
   return (
     <footer className="footer">
       <TodoCount />
@@ -38,7 +37,4 @@ export default function TodoFooter({ selectedFilter, changeFilter }) {
   );
 }
 
-TodoFooter.propTypes = {
-  selectedFilter: PropTypes.string.isRequired,
-  changeFilter: PropTypes.func.isRequired,
-};
+TodoFooter.propTypes = {};

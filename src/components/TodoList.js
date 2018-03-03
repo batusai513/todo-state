@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import Todo from "./Todo";
+import { getFilteredList } from '../modules/todos';
 
 function TodoList({ list }) {
   return (
@@ -29,17 +30,6 @@ function mapStateToProps(state) {
   const { todos, selectedFilter } = state;
   return {
     list: getFilteredList(todos, selectedFilter),
-  }
-}
-
-function getFilteredList(list, filter) {
-  switch (filter) {
-    case 'active':
-      return list.filter(item => !item.isDone);
-    case 'completed':
-      return list.filter(item => item.isDone);
-    default:
-      return list;
   }
 }
 
