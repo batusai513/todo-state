@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TodoFilter from "./TodoFilter";
+import TodoCount from './TodoCount';
 
 export default function TodoFooter({
   leftTodos,
@@ -9,7 +10,7 @@ export default function TodoFooter({
 }) {
   return (
     <footer className="footer">
-      <span className="todo-count"><strong>{leftTodos}</strong> item left</span>
+      <TodoCount />
       <ul className="filters">
         <li>
           <TodoFilter

@@ -25,6 +25,10 @@ export default class TodosContainer extends Container {
     });
   };
 
+  leftTodosCount = () => {
+    return this.getFilteredList(this.state.todos, 'active').length;
+  }
+
   toggleTodo(todo) {
     return {
       ...todo,
