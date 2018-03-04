@@ -15,7 +15,7 @@ export default function TodoCountContainer() {
     <Subscribe to={[TodosContainer]}>
       {
         ({ leftTodosCount }) => (
-          <TodoCount leftTodos={leftTodosCount()} />
+          <TodoCount leftTodos={leftTodosCount} />
         )
       }
     </Subscribe>
