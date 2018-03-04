@@ -1,36 +1,47 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Todo from "./Todo";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Subscribe } from 'unstated';
+import Todo from './Todo';
+import TodosContainer from '../modules/TodosContainer';
+import SelectedFilterContainer from '../modules/SelectedFilterContainer';
 
-export default function TodoList({ list, toggleTodoDone, deleteTodo }) {
-  return (
-    <ul className="todo-list">
-      {renderList(list)}
-    </ul>
-  );
+function TodoList({ list, toggleTodoDone, deleteTodo }) {
+  return <ul className="todo-list">{renderList(list)}</ul>;
 
   function renderList(list) {
-    return list.map((todo, idx) => (
-      <li key={todo.text} className={`${todo.isDone ? "completed" : ""}`}>
+    return list.map((todo) => (
+      <li key={todo.id}>
         <Todo
-          deleteTodo={function() {
-            deleteTodo(idx);
-          }}
-          toggleTodoDone={function() {
-            toggleTodoDone(idx);
-          }}
+          id={todo.id}
           text={todo.text}
           isDone={todo.isDone}
+          toggleTodoDone={toggleTodoDone}
+          deleteTodo={deleteTodo}
         />
       </li>
     ));
   }
 }
 
-TodoList.displayName = "TodoList";
+export default function TodoListContainer() {
+  return (
+    <Subscribe to={[TodosContainer, SelectedFilterContainer]}>
+      {(Todos, SelectedFilter) => (
+        <TodoList
+          list={Todos.getFilteredList(
+            Todos.state.todos,
+            SelectedFilter.state.selectedFilter
+          )}
+          toggleTodoDone={Todos.toggleTodoIsDone}
+          deleteTodo={Todos.removeTodo}
+        />
+      )}
+    </Subscribe>
+  );
+}
+
+TodoList.displayName = 'TodoList';
 
 TodoList.propTypes = {
   list: PropTypes.array.isRequired,
-  toggleTodoDone: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired
 };

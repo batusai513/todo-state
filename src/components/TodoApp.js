@@ -61,15 +61,11 @@ export default class TodoApp extends Component {
     var leftTodos = todos.filter(todo => !todo.isDone).length;
     return (
       <section className="todoapp">
-        <TodoHeader onAddTodo={this.addTodo} />
+        <TodoHeader />
         <section className="main">
           <input className="toggle-all" type="checkbox" />
           <label htmlFor="toggle-all">Mark all as complete</label>
-          <TodoList
-            deleteTodo={this.deleteTodo}
-            toggleTodoDone={this.toggleTodoDone}
-            list={filteredTodos}
-          />
+          <TodoList />
         </section>
         <TodoFooter
           changeFilter={this.changeFilter}
