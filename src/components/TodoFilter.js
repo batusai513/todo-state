@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Subscribe } from 'unstated';
+import SelectedFilterContainer from '../modules/SelectedFilterContainer';
 
-export default function TodoFilter({
-  children,
-  url,
-  selectedFilter,
-  type,
-  onChangeFilter
-}) {
+function TodoFilter({ children, url, isActive, type, onChangeFilter }) {
   return (
-    <a onClick={changeFilterHandler(onChangeFilter, type)} className={`${selectedFilter === type ? "selected" : ""}`} href="#/">
+    <a
+      onClick={changeFilterHandler(onChangeFilter, type)}
+      className={`${isActive ? 'selected' : ''}`}
+      href="#/"
+    >
       {children}
     </a>
   );
@@ -18,15 +18,28 @@ export default function TodoFilter({
 function changeFilterHandler(onChangeFilter, type) {
   return function() {
     onChangeFilter(type);
-  }
+  };
 }
 
-TodoFilter.displayName = "TodoFilter";
+export default function TodoFilterContainer(props) {
+  return (
+    <Subscribe to={[SelectedFilterContainer]}>
+      {selectedFilter => (
+        <TodoFilter
+          {...props}
+          isActive={selectedFilter.state.selectedFilter === props.type}
+          onChangeFilter={selectedFilter.changeSelectedFilter}
+        />
+      )}
+    </Subscribe>
+  );
+}
+
+TodoFilter.displayName = 'TodoFilter';
 
 TodoFilter.propTypes = {
   children: PropTypes.node.isRequired,
   url: PropTypes.string.isRequired,
-  selectedFilter: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  onChangeFilter: PropTypes.func.isRequired
+  onChangeFilter: PropTypes.func.isRequired,
 };

@@ -25,8 +25,22 @@ export default class TodosContainer extends Container {
     });
   };
 
+  clearCompleted = () => {
+    this.setState({
+      todos: this.state.todos.filter(todo => !todo.isDone),
+    });
+  };
+
+  get leftTodos() {
+    return this.getFilteredList(this.state.todos, 'active');
+  }
+
+  get completedTodos() {
+    return this.getFilteredList(this.state.todos, 'completed');
+  }
+
   get leftTodosCount() {
-    return this.getFilteredList(this.state.todos, 'active').length;
+    return this.leftTodos.length;
   }
 
   toggleTodo(todo) {
