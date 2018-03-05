@@ -23,21 +23,18 @@ Title.defaultProps = {
 // el estado del componente es almanecenado en la propiedad state, el estado solo se puede declarar en componentes tipo clase.
 // Cuando se muta el estado utilizando el metodo setState, se vuelve a renderizar ese componente y el arbol de componentes que estan por debajo de este
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: ""
-    };
-  }
-
+  // usando class fields de es2017
+  state = {
+    text: ""
+  };
   // metodos del ciclo de vida: se llaman en partes claves en el ciclo de vida del componente
 
   componentDidMount() {
-    setInterval(function() {
+    setInterval(() => {
       this.setState({
         text: Math.random()
       });
-    }.bind(this), 1000);
+    }, 1000);
   }
 
   render() {
