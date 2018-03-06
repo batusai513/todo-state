@@ -1,26 +1,6 @@
 import React, { Component, createElement } from "react";
 import P from "prop-types";
-
-//Crear componente como funcion (las propiedades llegan como parametros de la funcion)
-// la propiedad children es especial ya que no la defines directamente en el objeto de props
-// Las propiedades de un componente de react son inmutables, no se pueden mutar de manera directa
-function Title(props) {
-  return React.createElement(props.level, null, props.children);
-}
-
-function Header(props) {
-  return (
-    <header className="header">
-      <h1>Todos</h1>
-      <input
-        type="text"
-        className="new-todo"
-        placeholder="What needs to be done?"
-        autoFocus={true}
-      />
-    </header>
-  );
-}
+import Header, { getName as getOtherName } from './components/Header'; // default y named
 
 function Body(props) {
   return (
