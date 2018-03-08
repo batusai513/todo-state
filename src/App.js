@@ -8,13 +8,17 @@ function todoFactory(text) {
     text,
     active: false,
     id: Date.now()
-  }
+  };
 }
+
+/*
+  arr.filter(item => true )
+*/
 
 export default class App extends React.Component {
   state = {
     todoList: [],
-    visibilityFilter: "all",
+    visibilityFilter: "all", // completed, active
     leftItems: 0,
     toggleTodos: false
   };
