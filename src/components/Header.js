@@ -1,6 +1,10 @@
-import React from 'react';
+import React from "react";
+import P from "prop-types";
+
+const ENTER_KEY = 13;
 
 export default function Header(props) {
+  var onAddTodo = props.onAddTodo;
   return (
     <header className="header">
       <h1>Todos</h1>
@@ -9,11 +13,21 @@ export default function Header(props) {
         className="new-todo"
         placeholder="What needs to be done?"
         autoFocus={true}
+        onKeyDown={onKeyDown}
       />
     </header>
   );
+
+  function onKeyDown(e) {
+    var keyCode = e.keyCode;
+    var text = e.target.value;
+    if (keyCode === ENTER_KEY) {
+      onAddTodo(text);
+      e.target.value = "";
+    }
+  }
 }
 
-export function getName() {
-  return 'Marcela';
-}
+Header.propTypes = {
+  onAddTodo: P.func.isRequired
+};
