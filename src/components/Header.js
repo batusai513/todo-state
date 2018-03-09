@@ -5,6 +5,7 @@ const ENTER_KEY = 13;
 
 export default function Header(props) {
   var onAddTodo = props.onAddTodo;
+  var updateLeftItems = props.updateLeftItems;
   return (
     <header className="header">
       <h1>Todos</h1>
@@ -29,5 +30,6 @@ export default function Header(props) {
 }
 
 Header.propTypes = {
-  onAddTodo: P.func.isRequired
+  onAddTodo: P.func.isRequired,
+  updateLeftItems: P.func.isRequired
 };
