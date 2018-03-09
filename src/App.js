@@ -18,18 +18,13 @@ function todoFactory(text) {
 export default class App extends React.Component {
   state = {
     todoList: [],
-    visibleTodos: [],
     visibilityFilter: "all", // completed, active
-    leftItems: 0,
     toggleTodos: false
   };
 
   addTodo = text => {
     this.setState({
       todoList: this.state.todoList.concat(todoFactory(text)),
-      visibleTodos: this.state.todoList.concat(todoFactory(text))
-    }, () => {
-      this.updateLeftItems(this.state.todoList.length);
     });
   };
 
@@ -43,7 +38,6 @@ export default class App extends React.Component {
     })
     this.setState({
       todoList: list,
-      visibleTodos: list
     });
   };
 
@@ -54,28 +48,30 @@ export default class App extends React.Component {
   }
 
   setVisibilityFilter = (ref) => {
-    if (ref === 'all'){
-      this.setState({
-        visibleTodos: this.state.todoList
-      });
-    }else if (ref === 'completed'){
-      this.setState({
-        visibleTodos: this.state.todoList.filter(todo => todo.active === true )
-      });
+    this.setState({
+      visibilityFilter: ref
+    });
+  }
 
-    }else if (ref === 'active'){
-      this.setState({
-        visibleTodos: this.state.todoList.filter(todo => todo.active === false )
-      });
+  getTodosbyFilter(visibilityFilter, list) {
+    if (visibilityFilter === 'all') {
+      return list;
+    }else if (visibilityFilter === 'completed'){
+      return list.filter(todo => todo.active === true )
+    }else if (visibilityFilter === 'active'){
+      return list.filter(todo => todo.active === false )
     }
   }
 
   render() {
+    var visibilityFilter = this.state.visibilityFilter;
+    var todoList = this.state.todoList
+    var list = this.getTodosbyFilter(visibilityFilter, todoList);
     return (
       <section className="todoapp">
         <Header onAddTodo={this.addTodo} updateLeftItems={this.updateLeftItems} />
-        <Body list={this.state.visibleTodos} onToggleTodo={this.toggleTodoActive} />
-        <Footer leftItems={this.state.leftItems} setVisibilityFilter={this.setVisibilityFilter} />
+        <Body list={list} onToggleTodo={this.toggleTodoActive} />
+        <Footer leftItems={this.getTodosbyFilter('active', todoList).length} setVisibilityFilter={this.setVisibilityFilter} />
       </section>
     );
   }
