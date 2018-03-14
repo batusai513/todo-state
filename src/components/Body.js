@@ -4,6 +4,7 @@ import P from "prop-types";
 export default function Body(props) {
   var list = props.list;
   var onToggleTodo = props.onToggleTodo;
+  var onRemoveToDo = props.onRemoveToDo;
   return (
     <section className="main">
       <input className="toggle-all" type="checkbox" />
@@ -20,7 +21,7 @@ export default function Body(props) {
                   onChange={onActiveChange(todo.id)}
                 />
                 <label>{todo.text}</label>
-                <button className="destroy" />
+                <button className="destroy" onClick={onRemoveToDoHandler(todo.id)}>&nbsp;</button>
               </div>
             </li>
           );
@@ -34,9 +35,17 @@ export default function Body(props) {
       onToggleTodo(id);
     };
   }
+
+  function onRemoveToDoHandler(id) {
+    return function $onRemoveToDo(e){
+      onRemoveToDo(id);
+    }
+
+  }
 }
 
 Body.propTypes = {
   list: P.array.isRequired,
-  onToggleTodo: P.func.isRequired
+  onToggleTodo: P.func.isRequired,
+  onRemoveToDo: P.func.isRequired
 };

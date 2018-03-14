@@ -4,6 +4,8 @@ import P from "prop-types";
 export default function Footer(props) {
   var leftItems = props.leftItems
   var setVisibilityFilter = props.setVisibilityFilter
+  var clearCompleted = props.clearCompleted
+  var toggleClearCompleted = props.toggleClearCompleted
   return (
     <footer className="footer">
       <span className="todo-count">
@@ -22,16 +24,24 @@ export default function Footer(props) {
           <a href="#/completed"  onClick={() => onClick('completed')}>Completed</a>
         </li>
       </ul>
-      <button className="clear-completed" />
+      <button className="clear-completed" style={toggleClearCompleted === true ? {display: "block"} : {display: "none"}} onClick={clearCompletedHandler()}>Clear Completed </button>
     </footer>
   );
 
   function onClick(ref){
     setVisibilityFilter(ref);
   }
+
+  function clearCompletedHandler(){
+    return () =>{
+      clearCompleted();
+    }
+  }
 }
 
 Footer.propTypes = {
   leftItems: P.number,
-  setVisibilityFilter: P.func.isRequired
+  setVisibilityFilter: P.func.isRequired,
+  clearCompleted: P.func.isRequired,
+  toggleClearCompleted: P.bool
 }
