@@ -5,9 +5,10 @@ export default function Body(props) {
   var list = props.list;
   var onToggleTodo = props.onToggleTodo;
   var onRemoveToDo = props.onRemoveToDo;
+  var onToggleTodos = props.onToggleTodos;
   return (
     <section className="main">
-      <input className="toggle-all" type="checkbox" />
+      <input className="toggle-all" id="toggle-all" type="checkbox" defaultChecked={false} onChange={onToggleTodosHandler()}/>
       <label htmlFor="toggle-all">Mark all as complete</label>
       <ul className="todo-list">
         {list.map(todo => {
@@ -42,10 +43,18 @@ export default function Body(props) {
     }
 
   }
+
+  function onToggleTodosHandler(){
+    return function $onToggleTodos(e){
+      console.warn('here');
+      onToggleTodos();
+    }
+  }
 }
 
 Body.propTypes = {
   list: P.array.isRequired,
   onToggleTodo: P.func.isRequired,
-  onRemoveToDo: P.func.isRequired
+  onRemoveToDo: P.func.isRequired,
+  onToggleTodos: P.func.isRequired
 };

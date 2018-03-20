@@ -1,11 +1,13 @@
 import React from 'react';
 import P from "prop-types";
+import Filter from "./Filter";
 
 export default function Footer(props) {
   var leftItems = props.leftItems
   var setVisibilityFilter = props.setVisibilityFilter
   var clearCompleted = props.clearCompleted
   var toggleClearCompleted = props.toggleClearCompleted
+  var visibilityFilter = props.visibilityFilter
   return (
     <footer className="footer">
       <span className="todo-count">
@@ -13,15 +15,13 @@ export default function Footer(props) {
       </span>
       <ul className="filters">
         <li>
-          <a href="#/" className="selected" onClick={() =>  onClick('all')}>
-            All
-          </a>
+          <Filter visibilityFilter={visibilityFilter} onClick={onClick} text="all"></Filter>
         </li>
         <li>
-          <a href="#/active"  onClick={() => onClick('active')}>Active</a>
+          <Filter visibilityFilter={visibilityFilter} onClick={onClick} text="active"></Filter>
         </li>
         <li>
-          <a href="#/completed"  onClick={() => onClick('completed')}>Completed</a>
+          <Filter visibilityFilter={visibilityFilter} onClick={onClick} text="completed"></Filter>
         </li>
       </ul>
       <button className="clear-completed" style={toggleClearCompleted === true ? {display: "block"} : {display: "none"}} onClick={clearCompletedHandler()}>Clear Completed </button>
@@ -43,5 +43,6 @@ Footer.propTypes = {
   leftItems: P.number,
   setVisibilityFilter: P.func.isRequired,
   clearCompleted: P.func.isRequired,
-  toggleClearCompleted: P.bool
+  toggleClearCompleted: P.bool,
+  visibilityFilter: P.string
 }

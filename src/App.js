@@ -77,15 +77,37 @@ export default class App extends React.Component {
     })
   }
 
+  onToggleTodos = () => {
+    var todoList = this.state.todoList;
+    var toggleTodos = this.state.toggleTodos;
+    var list = todoList.map(todo => {
+      if (toggleTodos === false) {
+        return Object.assign({}, todo, { active: true });
+      }else{
+        return Object.assign({}, todo, { active: false });
+      }
+    })
+    this.setState({
+      todoList: list,
+      toggleTodos: !toggleTodos
+    });
+  }
+
   render() {
     var visibilityFilter = this.state.visibilityFilter;
-    var todoList = this.state.todoList
+    var todoList = this.state.todoList;
     var list = this.getTodosbyFilter(visibilityFilter, todoList);
     return (
       <section className="todoapp">
         <Header onAddTodo={this.addTodo} updateLeftItems={this.updateLeftItems} />
-        <Body list={list} onToggleTodo={this.toggleTodoActive} onRemoveToDo={this.onRemoveToDo} />
-        <Footer leftItems={this.getTodosbyFilter('active', todoList).length} setVisibilityFilter={this.setVisibilityFilter} clearCompleted={this.clearCompleted} toggleClearCompleted={this.getTodosbyFilter('completed', todoList).length > 0 ? true : false} />
+        <Body list={list} onToggleTodo={this.toggleTodoActive} onRemoveToDo={this.onRemoveToDo} onToggleTodos={this.onToggleTodos} />
+        <Footer
+          visibilityFilter={visibilityFilter}
+          leftItems={this.getTodosbyFilter('active', todoList).length}
+          setVisibilityFilter={this.setVisibilityFilter}
+          clearCompleted={this.clearCompleted}
+          toggleClearCompleted={this.getTodosbyFilter('completed', todoList).length > 0 ? true : false}
+        />
       </section>
     );
   }
