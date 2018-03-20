@@ -19,7 +19,6 @@ export default class App extends React.Component {
   state = {
     todoList: [],
     visibilityFilter: "all", // completed, active
-    toggleTodos: false
   };
 
   addTodo = text => {

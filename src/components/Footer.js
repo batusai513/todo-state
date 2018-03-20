@@ -1,6 +1,7 @@
 import React from "react";
 import P from "prop-types";
 import Filter from "./Filter";
+import { NameConsumer } from './Context';
 
 export default function Footer({
   leftItems,
@@ -37,6 +38,16 @@ export default function Footer({
           />
         </li>
       </ul>
+      <NameConsumer>
+        {
+          (value) => console.warn(value.changeText)||  (
+            <div>
+              <h2>{value.name}</h2>
+              <button onClick={() => value.changeText("ohhhhhhhhh!")}>cambio 🐸</button>
+            </div>
+          )
+        }
+      </NameConsumer>
       <button
         className="clear-completed"
         style={
