@@ -17,10 +17,12 @@ var [ nombre, apellido ] = arr;
 
 */
 
-
 export default function Filter({ visibilityFilter, text, onClick }) {
   return (
-    <a className={visibilityFilter ===  text ? 'selected' : ''} onClick={() => onClick(text)}>
+    <a
+      className={visibilityFilter === text ? "selected" : ""}
+      onClick={() => onClick(text)}
+    >
       {text}
     </a>
   );

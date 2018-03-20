@@ -1,13 +1,14 @@
-import React from 'react';
+import React from "react";
 import P from "prop-types";
 import Filter from "./Filter";
 
-export default function Footer(props) {
-  var leftItems = props.leftItems
-  var setVisibilityFilter = props.setVisibilityFilter
-  var clearCompleted = props.clearCompleted
-  var toggleClearCompleted = props.toggleClearCompleted
-  var visibilityFilter = props.visibilityFilter
+export default function Footer({
+  leftItems,
+  setVisibilityFilter,
+  clearCompleted,
+  toggleClearCompleted,
+  visibilityFilter
+}) {
   return (
     <footer className="footer">
       <span className="todo-count">
@@ -15,27 +16,49 @@ export default function Footer(props) {
       </span>
       <ul className="filters">
         <li>
-          <Filter visibilityFilter={visibilityFilter} onClick={onClick} text="all"></Filter>
+          <Filter
+            visibilityFilter={visibilityFilter}
+            onClick={onClick}
+            text="all"
+          />
         </li>
         <li>
-          <Filter visibilityFilter={visibilityFilter} onClick={onClick} text="active"></Filter>
+          <Filter
+            visibilityFilter={visibilityFilter}
+            onClick={onClick}
+            text="active"
+          />
         </li>
         <li>
-          <Filter visibilityFilter={visibilityFilter} onClick={onClick} text="completed"></Filter>
+          <Filter
+            visibilityFilter={visibilityFilter}
+            onClick={onClick}
+            text="completed"
+          />
         </li>
       </ul>
-      <button className="clear-completed" style={toggleClearCompleted === true ? {display: "block"} : {display: "none"}} onClick={clearCompletedHandler()}>Clear Completed </button>
+      <button
+        className="clear-completed"
+        style={
+          toggleClearCompleted === true
+            ? { display: "block" }
+            : { display: "none" }
+        }
+        onClick={clearCompletedHandler()}
+      >
+        Clear Completed{" "}
+      </button>
     </footer>
   );
 
-  function onClick(ref){
+  function onClick(ref) {
     setVisibilityFilter(ref);
   }
 
-  function clearCompletedHandler(){
-    return () =>{
+  function clearCompletedHandler() {
+    return () => {
       clearCompleted();
-    }
+    };
   }
 }
 
@@ -45,4 +68,4 @@ Footer.propTypes = {
   clearCompleted: P.func.isRequired,
   toggleClearCompleted: P.bool,
   visibilityFilter: P.string
-}
+};

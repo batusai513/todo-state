@@ -24,7 +24,7 @@ export default class App extends React.Component {
 
   addTodo = text => {
     this.setState({
-      todoList: this.state.todoList.concat(todoFactory(text)),
+      todoList: this.state.todoList.concat(todoFactory(text))
     });
   };
 
@@ -35,47 +35,47 @@ export default class App extends React.Component {
         return Object.assign({}, todo, { active: !todo.active });
       }
       return todo;
-    })
+    });
     this.setState({
       todoList: list
     });
   };
 
-  updateLeftItems = (length) => {
+  updateLeftItems = length => {
     this.setState({
       leftItems: length
     });
-  }
+  };
 
   setVisibilityFilter = ref => {
     this.setState({
       visibilityFilter: ref
     });
-  }
+  };
 
   getTodosbyFilter(visibilityFilter, list) {
-    if (visibilityFilter === 'all') {
+    if (visibilityFilter === "all") {
       return list;
-    }else if (visibilityFilter === 'completed'){
-      return list.filter(todo => todo.active === true )
-    }else if (visibilityFilter === 'active'){
-      return list.filter(todo => todo.active === false )
+    } else if (visibilityFilter === "completed") {
+      return list.filter(todo => todo.active === true);
+    } else if (visibilityFilter === "active") {
+      return list.filter(todo => todo.active === false);
     }
   }
 
   onRemoveToDo = id => {
     var todoList = this.state.todoList;
     this.setState({
-      todoList: todoList.filter(item => item.id !== id),
+      todoList: todoList.filter(item => item.id !== id)
     });
-  }
+  };
 
   clearCompleted = () => {
     var todoList = this.state.todoList;
     this.setState({
       todoList: todoList.filter(todo => todo.active === false)
-    })
-  }
+    });
+  };
 
   onToggleTodos = () => {
     var todoList = this.state.todoList;
@@ -83,30 +83,42 @@ export default class App extends React.Component {
     var list = todoList.map(todo => {
       if (toggleTodos === false) {
         return Object.assign({}, todo, { active: true });
-      }else{
+      } else {
         return Object.assign({}, todo, { active: false });
       }
-    })
+    });
     this.setState({
       todoList: list,
       toggleTodos: !toggleTodos
     });
-  }
+  };
 
   render() {
-    var visibilityFilter = this.state.visibilityFilter;
-    var todoList = this.state.todoList;
+    var { visibilityFilter } = this.state;
+    var { todoList } = this.state;
     var list = this.getTodosbyFilter(visibilityFilter, todoList);
     return (
       <section className="todoapp">
-        <Header onAddTodo={this.addTodo} updateLeftItems={this.updateLeftItems} />
-        <Body list={list} onToggleTodo={this.toggleTodoActive} onRemoveToDo={this.onRemoveToDo} onToggleTodos={this.onToggleTodos} />
+        <Header
+          onAddTodo={this.addTodo}
+          updateLeftItems={this.updateLeftItems}
+        />
+        <Body
+          list={list}
+          onToggleTodo={this.toggleTodoActive}
+          onRemoveToDo={this.onRemoveToDo}
+          onToggleTodos={this.onToggleTodos}
+        />
         <Footer
           visibilityFilter={visibilityFilter}
-          leftItems={this.getTodosbyFilter('active', todoList).length}
+          leftItems={this.getTodosbyFilter("active", todoList).length}
           setVisibilityFilter={this.setVisibilityFilter}
           clearCompleted={this.clearCompleted}
-          toggleClearCompleted={this.getTodosbyFilter('completed', todoList).length > 0 ? true : false}
+          toggleClearCompleted={
+            this.getTodosbyFilter("completed", todoList).length > 0
+              ? true
+              : false
+          }
         />
       </section>
     );
