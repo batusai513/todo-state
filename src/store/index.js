@@ -1,78 +1,86 @@
-import { extendObservable, computed, action } from "mobx";
+import { observable, computed, action, decorate } from "mobx";
 
-export class Todo {
+class TodoDefinition {
   constructor({ text = "", isDone = false }, root) {
-    extendObservable(this, {
-      id: Date.now(),
-      isDone,
-      text,
-      root,
-      isEditing: false,
-      toggleIsDone: action(
-        function toggleIsDone() {
-          this.isDone = !this.isDone;
-        }.bind(this)
-      ),
-      changeText: action(
-        function changeText(text) {
-          this.text = text;
-        }.bind(this)
-      ),
-      removeTodo: action(
-        function removeTodo() {
-          this.root.removeTodo(this);
-        }.bind(this)
-      )
-    });
+    this.isDone = isDone;
+    this.text = text;
+    this.root = root;
+  }
+  id = Date.now();
+  isDone = false;
+  text = "";
+  isEditing = false;
+  toggleIsDone() {
+    this.isDone = !this.isDone;
+  }
+  changeText(text) {
+    this.text = text;
+  }
+  removeTodo() {
+    this.root.removeTodo(this);
   }
 }
 
-export class TodosApp {
-  constructor() {
-    extendObservable(this, {
-      todos: [],
-      selectedFilter: "all",
-      completedTodos: computed(function completedTodos() {
-        return this.todos.filter(todo => todo.isDone);
-      }),
-      activeTodos: computed(function completedTodos() {
-        return this.todos.filter(todo => !todo.isDone);
-      }),
-      leftTodos: computed(function leftTodos() {
-        return this.activeTodos.length;
-      }),
-      getFilteredList: computed(function getFilteredList() {
-        return {
-          all: this.todos,
-          active: this.activeTodos,
-          completed: this.completedTodos
-        }[this.selectedFilter];
-      }),
-      addTodo: action(
-        function addTodo(text) {
-          this.todos.unshift(new Todo({ text }, this));
-        }.bind(this)
-      ),
-      removeTodo: action(
-        function removeTodo(todo) {
-          this.todos.splice(this.todos.indexOf(todo), 1);
-        }.bind(this)
-      ),
-      changeFilter: action(
-        function changeFilter(filter) {
-          this.selectedFilter = filter;
-        }.bind(this)
-      ),
-      toggleActiveTodos: action(function toggleActiveTodos(state) {
-        if(state === true) {
-          this.activeTodos.forEach(item => item.toggleIsDone());
-        } else {
-          this.activeTodos.forEach(item => item.toggleIsDone());
-        }
-      }.bind(this)),
-      clearCompleted: action(function clearCompleted() {
-        this.completedTodos.forEach(todo => todo.removeTodo())
-      }.bind(this))
-    });
+export const Todo = decorate(TodoDefinition, {
+  id: observable,
+  isDone: observable,
+  text: observable,
+  isEditing: observable,
+  toggleIsDone: action.bound,
+  changeText: action.bound,
+  removeTodo: action.bound
+});
+
+class TodosAppDefinition {
+  todos = [];
+  selectedFilter = "all";
+  get completedTodos() {
+    return this.todos.filter(todo => todo.isDone);
+  }
+  get activeTodos() {
+    return this.todos.filter(todo => !todo.isDone);
+  }
+  get leftTodos() {
+    return this.activeTodos.length;
+  }
+  get getFilteredList() {
+    return {
+      all: this.todos,
+      active: this.activeTodos,
+      completed: this.completedTodos
+    }[this.selectedFilter];
+  }
+  addTodo(text) {
+    this.todos.unshift(new Todo({ text }, this));
+  }
+  removeTodo(todo) {
+    this.todos.splice(this.todos.indexOf(todo), 1);
+  }
+  changeFilter(filter) {
+    this.selectedFilter = filter;
+  }
+  toggleActiveTodos(state) {
+    if (state === true) {
+      this.activeTodos.forEach(item => item.toggleIsDone());
+    } else {
+      this.activeTodos.forEach(item => item.toggleIsDone());
+    }
+  }
+  clearCompleted() {
+    this.completedTodos.forEach(todo => todo.removeTodo());
   }
 }
+
+export const TodosApp = decorate(TodosAppDefinition, {
+  todos: observable,
+  selectedFilter: observable,
+  completedTodos: computed,
+  activeTodos: computed,
+  leftTodos: computed,
+  getFilteredList: computed,
+  addTodo: action.bound,
+  removeTodo: action.bound,
+  changeFilter: action.bound,
+  toggleActiveTodos: action.bound,
+  clearCompleted: action.bound
+});

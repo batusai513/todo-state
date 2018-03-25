@@ -7,7 +7,7 @@ function TodoList({ list }) {
   return <ul className="todo-list">{renderList(list)}</ul>;
 
   function renderList(list) {
-    return list.map((todo, idx) => console.warn(todo) || <Todo key={todo.id} todo={todo} />);
+    return list.map((todo, idx) => <Todo key={todo.id} todo={todo} />);
   }
 }
 
