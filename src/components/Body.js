@@ -1,5 +1,6 @@
 import React from "react";
 import P from "prop-types";
+import { TodoConsumer } from "./TodoContext";
 
 export default function Body({
   list,
@@ -60,7 +61,6 @@ export default function Body({
 
   function onToggleTodosHandler() {
     return function $onToggleTodos(e) {
-      console.warn("here");
       onToggleTodos();
     };
   }

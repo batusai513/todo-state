@@ -1,5 +1,6 @@
 import React from "react";
 import P from "prop-types";
+import { VisibilityFilterConsumer } from "./VisibilityFilterContext";
 
 /*
 Object deconstruction
@@ -17,19 +18,23 @@ var [ nombre, apellido ] = arr;
 
 */
 
-export default function Filter({ visibilityFilter, text, onClick }) {
+export default function Filter({ text }) {
   return (
-    <a
-      className={visibilityFilter === text ? "selected" : ""}
-      onClick={() => onClick(text)}
-    >
-      {text}
-    </a>
+    <VisibilityFilterConsumer>
+      {function(value) { // Render props
+        return (
+          <a
+            className={value.visibilityFilter === text ? "selected" : ""}
+            onClick={() => value.changeVisibilityFilter(text)}
+          >
+            {text}
+          </a>
+        );
+      }}
+    </VisibilityFilterConsumer>
   );
 }
 
 Filter.propTypes = {
-  visibilityFilter: P.string,
-  onClick: P.func.isRequired,
   text: P.string
 };
