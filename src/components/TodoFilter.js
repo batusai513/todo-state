@@ -1,24 +1,43 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FilterConsumer } from "./FilterContext";
 
 export default function TodoFilter({
   children,
   url,
-  selectedFilter,
+  isSelected,
   type,
   onChangeFilter
 }) {
   return (
-    <a onClick={changeFilterHandler(onChangeFilter, type)} className={`${selectedFilter === type ? "selected" : ""}`} href="#/">
+    <a
+      onClick={changeFilterHandler(onChangeFilter, type)}
+      className={`${isSelected ? "selected" : ""}`}
+      href="#/"
+    >
       {children}
     </a>
   );
 }
 
 function changeFilterHandler(onChangeFilter, type) {
-  return function() {
+  return function $changeFilterHandler() {
     onChangeFilter(type);
-  }
+  };
+}
+
+export function Filter(props) {
+  return (
+    <FilterConsumer>
+      {context => (
+        <TodoFilter
+          {...props}
+          isSelected={props.type === context.state.selectedFilter}
+          onChangeFilter={context.changeFilter}
+        />
+      )}
+    </FilterConsumer>
+  );
 }
 
 TodoFilter.displayName = "TodoFilter";
@@ -26,7 +45,7 @@ TodoFilter.displayName = "TodoFilter";
 TodoFilter.propTypes = {
   children: PropTypes.node.isRequired,
   url: PropTypes.string.isRequired,
-  selectedFilter: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   onChangeFilter: PropTypes.func.isRequired
 };
