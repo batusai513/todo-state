@@ -2,10 +2,17 @@ import React, { Component, createContext } from "react";
 
 var TodosContext = createContext();
 
-export class TodosProvider extends Component {
-  state = {
-    todos: []
-  };
+export class TodosProvider extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      todos: [],
+      addTodo: this.addTodo,
+      toggleTodoDone: this.toggleTodoDone,
+      deleteTodo: this.deleteTodo,
+      leftTodos: this.leftTodos
+    };
+  }
 
   addTodo = text => {
     this.setState(state => ({
@@ -30,24 +37,18 @@ export class TodosProvider extends Component {
     this.setState(state => ({ todos: newTodos }));
   };
 
-  get remainingTodos() {
+  remainingTodos = () => {
     return this.state.todos.filter(todo => !todo.isDone);
   }
 
-  get leftTodos() {
-    return this.remainingTodos.length;
+  leftTodos = () => {
+    return this.remainingTodos().length;
   }
 
   render() {
     return (
       <TodosContext.Provider
-        value={{
-          state: this.state,
-          addTodo: this.addTodo,
-          toggleTodoDone: this.toggleTodoDone,
-          deleteTodo: this.deleteTodo,
-          leftTodos: this.leftTodos
-        }}
+        value={this.state}
       >
         {this.props.children}
       </TodosContext.Provider>

@@ -4,9 +4,9 @@ import { TodosConsumer } from "./TodosContext";
 export default function LeftTodos() {
   return (
     <TodosConsumer>
-      {({ leftTodos }) => (
+      {(context) => (
         <span className="todo-count">
-          <strong>{leftTodos}</strong> item left
+          <strong>{context.leftTodos()}</strong> item left
         </span>
       )}
     </TodosConsumer>

@@ -23,9 +23,9 @@ function renderList(list) {
 export function Todos() {
   return (
     <TodosConsumer>
-      {({ state: { todos: list } }) => (
+      {({ todos: list }) => (
         <FilterConsumer>
-          {({ state: { selectedFilter } }) => (
+          {({ selectedFilter }) => (
             <TodoList list={getFilteredList(list, selectedFilter)} />
           )}
         </FilterConsumer>

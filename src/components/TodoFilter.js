@@ -32,7 +32,7 @@ export function Filter(props) {
       {context => (
         <TodoFilter
           {...props}
-          isSelected={props.type === context.state.selectedFilter}
+          isSelected={props.type === context.selectedFilter}
           onChangeFilter={context.changeFilter}
         />
       )}

@@ -2,22 +2,20 @@ import React, { Component, createContext } from "react";
 
 var FilterContext = createContext();
 
-export class FilterProvider extends Component {
-  state = {
-    selectedFilter: "all" // active, completed
-  };
-
+export class FilterProvider extends React.PureComponent {
   changeFilter = filter => {
     this.setState(state => ({ selectedFilter: filter }));
+  };
+
+  state = {
+    selectedFilter: "all", // active, completed
+    changeFilter: this.changeFilter
   };
 
   render() {
     return (
       <FilterContext.Provider
-        value={{
-          state: this.state,
-          changeFilter: this.changeFilter
-        }}
+        value={this.state}
       >
         {this.props.children}
       </FilterContext.Provider>
