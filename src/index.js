@@ -7,4 +7,3 @@ ReactDOM.render(
   <TodoApp />,
   document.querySelector('#root')
 );
-
