@@ -1,25 +1,29 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
 import TodoList from "./components/TodoList";
+import Filter from "./components/Filter";
+
+const filters = ["All", "Active", "Completed"];
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       todos: [],
+      activeFilter: "all" // || active || completed
     };
   }
 
-  addTodo = (text) => {
+  addTodo = text => {
     this.setState({
       todos: [
         { id: Date.now(), text: text, isDone: false },
         ...this.state.todos
       ]
     });
-  }
+  };
 
-  toggleTodo = (id) => {
+  toggleTodo = id => {
     this.setState({
       todos: this.state.todos.map(
         todo =>
@@ -30,7 +34,19 @@ export default class App extends React.Component {
             : todo
       )
     });
-  }
+  };
+
+  onDeleteTodo = id => {
+    this.setState({
+      todos: this.state.todos.filter(todo => todo.id !== id)
+    });
+  };
+
+  onChangeFilter = activeFilter => {
+    this.setState({
+      activeFilter
+    });
+  };
 
   leftTodos(todos) {
     return todos.filter(todo => !todo.isDone).length;
@@ -48,6 +64,7 @@ export default class App extends React.Component {
           <TodoList
             list={todos}
             onToggleTodo={this.toggleTodo}
+            onDeleteTodo={this.onDeleteTodo}
           />
         </section>
         <footer className="footer">
@@ -55,17 +72,15 @@ export default class App extends React.Component {
             <strong>{leftTodos}</strong> item left
           </span>
           <ul className="filters">
-            <li>
-              <a href="#/" className="selected">
-                All
-              </a>
-            </li>
-            <li>
-              <a href="#/active">Active</a>
-            </li>
-            <li>
-              <a href="#/completed">Completed</a>
-            </li>
+            {filters.map(filter => (
+              <li key={filter}>
+                <Filter
+                  text={filter}
+                  activeFilter={this.state.activeFilter}
+                  onChangeFilter={this.onChangeFilter}
+                />
+              </li>
+            ))}
           </ul>
           <button className="clear-completed" />
         </footer>

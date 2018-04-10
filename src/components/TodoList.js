@@ -1,5 +1,6 @@
 import React from "react";
 import P from "prop-types";
+import { TodoType } from '../libs/propTypes';
 
 export default function TodoList(props) {
   return (
@@ -15,7 +16,7 @@ export default function TodoList(props) {
                 onChange={() => props.onToggleTodo(item.id)}
               />
               <label>{item.text}</label>
-              <button className="destroy" />
+              <button className="destroy" onClick={() => props.onDeleteTodo(item.id)} />
             </div>
           </li>
         );
@@ -26,7 +27,8 @@ export default function TodoList(props) {
 
 TodoList.propTypes = {
   list: P.array,
-  onToggleTodo: P.func.isRequired
+  onToggleTodo: P.func.isRequired,
+  onDeleteTodo: P.func.isRequired,
 };
 
 TodoList.defaultProps = {
