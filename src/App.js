@@ -6,7 +6,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: []
+      todos: [],
     };
   }
 
@@ -32,7 +32,13 @@ export default class App extends React.Component {
     });
   }
 
+  leftTodos(todos) {
+    return todos.filter(todo => !todo.isDone).length;
+  }
+
   render() {
+    var todos = this.state.todos;
+    var leftTodos = this.leftTodos(todos);
     return (
       <section className="todoapp">
         <Header addTodo={this.addTodo} />
@@ -40,13 +46,13 @@ export default class App extends React.Component {
           <input className="toggle-all" type="checkbox" />
           <label htmlFor="toggle-all">Mark all as complete</label>
           <TodoList
-            list={this.state.todos}
+            list={todos}
             onToggleTodo={this.toggleTodo}
           />
         </section>
         <footer className="footer">
           <span className="todo-count">
-            <strong>1</strong> item left
+            <strong>{leftTodos}</strong> item left
           </span>
           <ul className="filters">
             <li>
