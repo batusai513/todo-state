@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "./components/Header";
 import TodoList from "./components/TodoList";
 import Filter from "./components/Filter";
+import { arrayByFilter } from './libs/utils';
 
 const filters = ["All", "Active", "Completed"];
 
@@ -53,7 +54,8 @@ export default class App extends React.Component {
   }
 
   render() {
-    var todos = this.state.todos;
+    var { todos, activeFilter: filter } = this.state;
+    var todosToRender = arrayByFilter(filter, todos);
     var leftTodos = this.leftTodos(todos);
     return (
       <section className="todoapp">
@@ -62,7 +64,7 @@ export default class App extends React.Component {
           <input className="toggle-all" type="checkbox" />
           <label htmlFor="toggle-all">Mark all as complete</label>
           <TodoList
-            list={todos}
+            list={todosToRender}
             onToggleTodo={this.toggleTodo}
             onDeleteTodo={this.onDeleteTodo}
           />
