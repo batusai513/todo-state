@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Header from "./components/Header";
 import TodoList from "./components/TodoList";
 import Filter from "./components/Filter";
-import { arrayByFilter } from './libs/utils';
+import ToggleAll from "./components/ToggleAll";
+import { arrayByFilter } from "./libs/utils";
 
 const filters = ["All", "Active", "Completed"];
 
@@ -49,6 +50,12 @@ export default class App extends React.Component {
     });
   };
 
+  toggleAll = (isDone) => {
+    this.setState({
+      todos: this.state.todos.map(todo => Object.assign({}, todo, { isDone }))
+    });
+  };
+
   leftTodos(todos) {
     return todos.filter(todo => !todo.isDone).length;
   }
@@ -61,8 +68,7 @@ export default class App extends React.Component {
       <section className="todoapp">
         <Header addTodo={this.addTodo} />
         <section className="main">
-          <input className="toggle-all" type="checkbox" />
-          <label htmlFor="toggle-all">Mark all as complete</label>
+          <ToggleAll toggleAll={this.toggleAll} />
           <TodoList
             list={todosToRender}
             onToggleTodo={this.toggleTodo}
