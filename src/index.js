@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import TodoApp from './App';
 import './Todo.css';
 import { FilterProvider } from './components/FilterContext';
+import { TodosProvider } from './components/TodosContext';
 
 ReactDOM.render(
-  <FilterProvider>
-    <TodoApp />
-  </FilterProvider>,
+  <TodosProvider>
+    <FilterProvider>
+      <TodoApp />
+    </FilterProvider>
+  </TodosProvider>,
   document.querySelector('#root')
 );

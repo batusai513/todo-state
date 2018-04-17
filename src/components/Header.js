@@ -1,7 +1,8 @@
 import React from "react";
 import P from "prop-types";
+import { TodosConsumer } from "./TodosContext";
 
-export default function Header(props) {
+export default function Header({ addTodo }) {
   var element;
   return (
     <header className="header">
@@ -20,9 +21,17 @@ export default function Header(props) {
   function onAddTodo(e) {
     e.preventDefault();
     var value = element.value;
-    props.addTodo(value);
+    addTodo(value);
     element.value = "";
   }
+}
+
+export function MapToProps(props) {
+  return (
+    <TodosConsumer>
+      {context => <Header addTodo={context.addTodo} />}
+    </TodosConsumer>
+  );
 }
 
 Header.propTypes = {

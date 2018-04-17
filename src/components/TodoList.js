@@ -1,6 +1,9 @@
 import React from "react";
 import P from "prop-types";
-import { TodoType } from '../libs/propTypes';
+import { TodoType } from "../libs/propTypes";
+import { TodosConsumer } from "./TodosContext";
+import { FilterConsumer } from "./FilterContext";
+import { arrayByFilter } from "../libs/utils";
 
 export default function TodoList(props) {
   return (
@@ -16,7 +19,10 @@ export default function TodoList(props) {
                 onChange={() => props.onToggleTodo(item.id)}
               />
               <label>{item.text}</label>
-              <button className="destroy" onClick={() => props.onDeleteTodo(item.id)} />
+              <button
+                className="destroy"
+                onClick={() => props.onDeleteTodo(item.id)}
+              />
             </div>
           </li>
         );
@@ -25,10 +31,28 @@ export default function TodoList(props) {
   );
 }
 
+export function MapToProps(props) {
+  return (
+    <TodosConsumer>
+      {({ todos, toggleTodo, onDeleteTodo }) => (
+        <FilterConsumer>
+          {({ activeFilter }) => (
+            <TodoList
+              list={arrayByFilter(activeFilter, todos)}
+              onToggleTodo={toggleTodo}
+              onDeleteTodo={onDeleteTodo}
+            />
+          )}
+        </FilterConsumer>
+      )}
+    </TodosConsumer>
+  );
+}
+
 TodoList.propTypes = {
   list: P.array,
   onToggleTodo: P.func.isRequired,
-  onDeleteTodo: P.func.isRequired,
+  onDeleteTodo: P.func.isRequired
 };
 
 TodoList.defaultProps = {
